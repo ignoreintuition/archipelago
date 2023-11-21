@@ -1,6 +1,5 @@
 units = {}
-ship = 19
-troop = 22
+
 function initSprites()
     for i, v in ipairs({{ship, 1, 1}, {ship, 10, 10}, {ship, 18, 3}, {troop, 5, 2}, {troop, 6, 2}}) do
         units[i] = initUnit(v[1], v[2], v[3])
@@ -29,11 +28,21 @@ function selectSprite(x, y)
     return
 end
 
+function getSpriteInfo(x, y)
+    for i, v in ipairs(units) do
+        if v.x == x and v.y == y then
+          return v
+        end
+    end
+    return false
+end
+
 function moveSprite(x, y)
     for i, v in ipairs(units) do
         if v.sel then
-            move(v, x, y)
-            v.sel = false
+            local res = move(v, x, y)
+            v.sel = not res 
+            return res
         end
     end
 end
