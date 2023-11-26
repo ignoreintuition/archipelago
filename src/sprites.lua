@@ -21,8 +21,7 @@ end
 function selectSprite(x, y)
     for i, v in ipairs(units) do
         if v.x == x and v.y == y then
-            v.sel = true
-            return v.sel
+          return selectUnit(v)
         end
     end
     return
@@ -40,7 +39,7 @@ end
 function moveSprite(x, y)
     for i, v in ipairs(units) do
         if v.sel then
-            local res = move(v, x, y)
+            local res = moveUnit(v, x, y)
             v.sel = not res 
             return res
         end

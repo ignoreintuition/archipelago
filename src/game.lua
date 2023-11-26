@@ -13,13 +13,12 @@ function _init()
     initMap()
     initSprites()
     initUi()
+    initToolbar()
     printh("Locked and stocked.")
 end
 
 function _update()
-    if (timer < 0) then
-        timer = animTimer
-    end
+    if (timer < 0) timer = animTimer
     timer = timer - 1
     updateMap()
     updateSprites()
@@ -30,4 +29,5 @@ function _draw()
     drawMap()
     drawSprites()
     drawUi()
+    drawToolbar()
 end
