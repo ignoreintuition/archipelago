@@ -1,5 +1,6 @@
 function initUnit(spr, x, y)
   local u = {}
+  u.type = unit
   u.spr = spr
   u.x = x
   u.y = y
