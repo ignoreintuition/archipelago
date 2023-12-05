@@ -41,9 +41,8 @@ end
 
 function action(x, y)
   if mode == sMode then
-    if selectSprite(x, y) then
-      mode = mMode
-    else
+    mode = selectSprite(x, y) 
+    if not mode then
       setToolbarActive(true)
       mode = tMode
     end

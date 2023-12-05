@@ -13,7 +13,10 @@ function drawBuilding(b)
   spr(b.spr, b.x * 8, b.y * 8)
 end
 
+function updateBuilding(b)
+end
+
 function selectBuilding(b)
-  b.sel = true
-  return b.sel
+  dialog("bulding info", { "Placeholder" }, "lg")
+  return dMode
 end

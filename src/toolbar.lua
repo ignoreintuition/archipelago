@@ -21,8 +21,8 @@ function drawToolbar()
 end
 
 function showToolbar()
-    tbx = 40 + 8 * activeAction
-    tby = 64
+    tbx = mapX * 8 + 40 + 8 * activeAction
+    tby = mapY * 8 + 64
     rect(tbx, tby, tbx + 8, tby + 8, 5)
     if btnp(0) then
         activeAction = (activeAction - 1) % 5

@@ -1,7 +1,7 @@
 sprites = {}
 
 function initSprites()
-    for i, v in ipairs({{ship, 1, 1}, {ship, 10, 10}, {ship, 18, 3}, {troop, 5, 2}, {troop, 6, 2}, {house, 4, 3}}) do
+    for i, v in ipairs({{ship, 1, 1}, {ship, 10, 10}, {ship, 18, 3}, {troop, 5, 2}, {troop, 6, 2}}) do
         addSprite(v)
     end
 end
@@ -10,6 +10,8 @@ function updateSprites()
     for i, v in ipairs(sprites) do
         if v.type == unit then
             updateUnit(v)
+        elseif v.type == building then
+            updateBuilding(v)
         end
     end
 end
@@ -28,15 +30,15 @@ function selectSprite(x, y)
     for i, v in ipairs(sprites) do
         if v.type == unit then
             if v.x == x and v.y == y then
-                return selectUnit(v)
+                return selectUnit(v)  
             end
         elseif v.type == building then
             if v.x == x and v.y == y then
-                return selectBuilding(v)
+                return selectBuilding(v)  
             end
         end
     end
-    return
+    return false
 end
 
 function getSpriteInfo(x, y)
@@ -47,7 +49,7 @@ function getSpriteInfo(x, y)
             end
         end
     end
-    return false
+    return {}
 end
 
 function moveSprite(x, y)

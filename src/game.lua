@@ -25,6 +25,7 @@ function _init()
 
     initMap()
     initSprites()
+    initEnemy()
     initUi()
     initToolbar()
     printh("Locked and stocked.")
@@ -35,12 +36,14 @@ function _update()
     timer = timer - 1
     updateMap()
     updateSprites()
+    updateEnemy()
     updateUi()
 end
 
 function _draw()
     drawMap()
     drawSprites()
+    drawEnemy()
     drawToolbar()
     drawDialog()
     drawUi()

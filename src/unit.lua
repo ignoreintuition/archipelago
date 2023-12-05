@@ -43,7 +43,7 @@ end
 
 function selectUnit(u)
   u.sel = true
-  return u.sel
+  return mMode 
 end
 
 function moveUnit(u, x, y)
