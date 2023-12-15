@@ -1,7 +1,7 @@
 sprites = {}
 
-function initSprites()
-  for i, v in ipairs({ { ship, 1, 1 }, { ship, 10, 10 }, { ship, 18, 3 }, { troop, 5, 2 }, { troop, 6, 2 } }) do
+function initSprites(sSprites)
+  for i, v in ipairs(sSprites) do
     addSprite(v)
   end
 end

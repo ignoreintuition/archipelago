@@ -11,7 +11,19 @@ function updateUi()
   if mode == sMode or mode == mMode then
     newX = c.x
     newY = c.y
-    if (btnp(0)) newX = newX - 1 if (btnp(1)) newX = newX + 1 if (btnp(2)) newY = newY - 1 if (btnp(3)) newY = newY + 1 c.x = mid(0, newX, 127)
+    if btnp(0) then
+      newX = newX - 1
+    end
+    if btnp(1) then
+      newX = newX + 1
+    end
+    if btnp(2) then
+      newY = newY - 1
+    end
+    if btnp(3) then
+      newY = newY + 1
+    end
+    c.x = mid(0, newX, 127)
     c.y = mid(0, newY, 63)
   end
 end
