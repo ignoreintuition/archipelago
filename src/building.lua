@@ -4,12 +4,15 @@ function initBuilding(spr, x, y)
   b.spr = spr
   b.type = building
   b.x = x
-  b.y = y 
+  b.y = y
   b.active = false
+  if b.spr == farm then
+    food = food + 1
+  end
   return b
 end
 
-function drawBuilding(b) 
+function drawBuilding(b)
   spr(b.spr, b.x * 8, b.y * 8)
 end
 

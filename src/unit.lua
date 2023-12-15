@@ -30,7 +30,6 @@ function drawUnit(u)
       u.y += 1
     elseif u.y > u.ty and canTravel(u, u.x, u.y - 1) then
       u.y -= 1
-
     end
   end
   spr(u.spr, u.x * 8, u.y * 8)
@@ -43,7 +42,7 @@ end
 
 function selectUnit(u)
   u.sel = true
-  return mMode 
+  return mMode
 end
 
 function moveUnit(u, x, y)

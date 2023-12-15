@@ -1,50 +1,60 @@
 function _init()
-    timer = 0
-    animTimer = 10
+  timer = 0
+  animTimer = 10
 
-    water = 0
-    land = 1
+  water = 0
+  land = 1
 
-    building = 1
-    unit = 2
+  building = 1
+  unit = 2
 
-    frame1 = 2
-    frame2 = 3
+  frame1 = 2
+  frame2 = 3
 
-    ship = 19
-    troop = 22
-    house = 21
-    farm = 24
-    port = 25
-    mine = 26
+  ship = 19
+  troop = 22
+  house = 21
+  farm = 24
+  port = 25
+  mine = 26
 
-    sMode = 1 --select
-    mMode = 2 --move
-    tMode = 3 --toolbar
-    dMode = 4 --dialog
+  sMode = 1
+  --select
+  mMode = 2
+  --move
+  tMode = 3
+  --toolbar
+  dMode = 4
+  --dialog
 
-    initMap()
-    initSprites()
-    initEnemy()
-    initUi()
-    initToolbar()
-    printh("Locked and stocked.")
+  wood = 0
+  food = 0
+  ore = 0
+  gold = 0
+  day = 1
+
+  initMap()
+  initSprites()
+  initEnemy()
+  initUi()
+  initToolbar()
+  printh("Locked and stocked.")
 end
 
 function _update()
-    if (timer < 0) timer = animTimer
-    timer = timer - 1
-    updateMap()
-    updateSprites()
-    updateEnemy()
-    updateUi()
+  if (timer < 0) timer = animTimer
+  timer = timer - 1
+  updateMap()
+  updateSprites()
+  updateEnemy()
+  updateUi()
 end
 
 function _draw()
-    drawMap()
-    drawSprites()
-    drawEnemy()
-    drawToolbar()
-    drawDialog()
-    drawUi()
+  drawMap()
+  drawSprites()
+  drawEnemy()
+  drawToolbar()
+  drawDialog()
+  drawUi()
 end

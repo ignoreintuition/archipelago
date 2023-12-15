@@ -18,7 +18,7 @@ function drawDialog()
     rectfill(d.x, d.y + 8, d.x + dSize[d.sz][3], d.y + dSize[d.sz][4] - 8, 0)
     print(d.t, d.x + 2, d.y + 2, 0)
     for i, v in ipairs(d.c) do
-      print(v, d.x + 2, d.y + 10 + 8 * (i-1), 7)
+      print(v, d.x + 2, d.y + 10 + 8 * (i - 1), 7)
     end
   end
 end
