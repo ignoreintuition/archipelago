@@ -1,8 +1,9 @@
 function initBuilding(spr, x, y)
   local b = {}
   b.sel = false
-  b.spr = spr
+  b.spr = sprites[spr]
   b.type = building
+  b.subType = spr
   b.x = x
   b.y = y
   b.active = false
@@ -20,6 +21,6 @@ function updateBuilding(b)
 end
 
 function selectBuilding(b)
-  dialog("bulding info", { "Placeholder" }, "lg")
-  return dMode
+  setToolbarActive(true, b.subType)
+  return tMode
 end

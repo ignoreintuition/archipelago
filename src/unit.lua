@@ -1,16 +1,16 @@
 function initUnit(spr, x, y)
   local u = {}
   u.type = unit
-  u.spr = spr
+  u.spr = sprites[spr]
   u.x = x
   u.y = y
   u.tx = x
   u.ty = y
   u.active = false
   u.sel = false
-  if u.spr == ship then
+  if u.spr == sprites["ship"] then
     u.terr = land
-  elseif u.spr == troop then
+  elseif u.spr == sprites["troop"] then
     u.terr = water
   end
   return u

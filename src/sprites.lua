@@ -1,4 +1,4 @@
-sprites = {}
+activeSprites = {}
 
 function initSprites(sSprites)
   for i, v in ipairs(sSprites) do
@@ -7,7 +7,7 @@ function initSprites(sSprites)
 end
 
 function updateSprites()
-  for i, v in ipairs(sprites) do
+  for i, v in ipairs(activeSprites) do
     if v.type == unit then
       updateUnit(v)
     elseif v.type == building then
@@ -17,7 +17,7 @@ function updateSprites()
 end
 
 function drawSprites()
-  for i, v in ipairs(sprites) do
+  for i, v in ipairs(activeSprites) do
     if v.type == unit then
       drawUnit(v)
     else
@@ -27,7 +27,7 @@ function drawSprites()
 end
 
 function selectSprite(x, y)
-  for i, v in ipairs(sprites) do
+  for i, v in ipairs(activeSprites) do
     if v.type == unit then
       if v.x == x and v.y == y then
         return selectUnit(v)
@@ -42,7 +42,7 @@ function selectSprite(x, y)
 end
 
 function getSpriteInfo(x, y)
-  for i, v in ipairs(sprites) do
+  for i, v in ipairs(activeSprites) do
     if v.type == unit or v.type == building then
       if v.x == x and v.y == y then
         return v
@@ -53,7 +53,7 @@ function getSpriteInfo(x, y)
 end
 
 function moveSprite(x, y)
-  for i, v in ipairs(sprites) do
+  for i, v in ipairs(activeSprites) do
     if v.sel and v.type == unit then
       local res = moveUnit(v, x, y)
       v.sel = not res
@@ -63,9 +63,21 @@ function moveSprite(x, y)
 end
 
 function addSprite(v)
-  if v[1] == ship or v[1] == troop then
-    add(sprites, initUnit(v[1], v[2], v[3]))
+  if v[1] == "ship" or v[1] == "troop" then
+    add(activeSprites, initUnit(v[1], v[2], v[3]))
   else
-    add(sprites, initBuilding(v[1], v[2], v[3]))
+    add(activeSprites, initBuilding(v[1], v[2], v[3]))
   end
+end
+
+function destroySprite(x, y)
+  for i, v in ipairs(activeSprites) do
+    if v.type == building then
+      if v.x == x and v.y == y then
+        del(activeSprites, v)
+        return true
+      end
+    end
+  end
+  return false
 end
