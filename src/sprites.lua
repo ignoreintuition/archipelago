@@ -74,7 +74,24 @@ function destroySprite(x, y)
   for i, v in ipairs(activeSprites) do
     if v.type == building then
       if v.x == x and v.y == y then
+        local explosion = 32
         del(activeSprites, v)
+        while explosion <= 34 do
+          spr(explosion, x, y)
+          explosion = explosion + 1
+        end
+        return true
+      end
+    end
+  end
+  return false
+end
+
+function upgradeSprite(x, y)
+  for i, v in ipairs(activeSprites) do
+    if v.type == building then
+      if v.x == x and v.y == y then
+        upgradeBuilding(v)
         return true
       end
     end

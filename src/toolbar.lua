@@ -10,26 +10,31 @@ toolbars.main = {
 }
 
 toolbars.house = {
+  { "upgrade", 58 },
   { "destroy", 51 },
   { "cancel", 52 }
 }
 toolbars.farm = {
   { "harvest", 49 },
+  { "upgrade", 58 },
   { "destroy", 51 },
   { "cancel", 52 }
 }
 toolbars.barracks = {
   { "train", 53 },
+  { "upgrade", 58 },
   { "destroy", 51 },
   { "cancel", 52 }
 }
 toolbars.mine = {
   { "mine ore", 50 },
+  { "upgrade", 58 },
   { "destroy", 51 },
   { "cancel", 52 }
 }
 toolbars.port = {
   { "build", 19 },
+  { "upgrade", 58 },
   { "destroy", 51 },
   { "cancel", 52 }
 }
@@ -72,7 +77,7 @@ function showToolbar()
     if (currTb == "farm") farmTb()
     if (currTb == "mine") mineTb()
     if (currTb == "barracks") barracksTb()
-    -- if (currTb == "port") portTb()
+    if (currTb == "port") portTb()
   elseif btnp(5) then
     setToolbarActive(false)
     mode = sMode
@@ -88,15 +93,19 @@ function mainTb()
     addSprite({ "mine", c.x, c.y })
   elseif activeAction == 3 then
     addSprite({ "barracks", c.x, c.y })
-  elseif activeAction == 4 then
+  elseif activeAction == 4then
+    addSprite({ "port", c.x, c.y })
+  elseif activeAction == 5 then
   end
   cleanUpTb()
 end
 
 function houseTb()
   if activeAction == 0 then
-    destroySprite(c.x, c.y)
+    upgradeSprite(c.x, c.y)
   elseif activeAction == 1 then
+    destroySprite(c.x, c.y)
+  elseif activeAction == 2 then
   end
   cleanUpTb()
 end
@@ -105,8 +114,10 @@ function farmTb()
   if activeAction == 0 then
     food = food + 1
   elseif activeAction == 1 then
-    destroySprite(c.x, c.y)
+    upgradeSprite(c.x, c.y)
   elseif activeAction == 2 then
+    destroySprite(c.x, c.y)
+  elseif activeAction == 3 then
   end
   cleanUpTb()
 end
@@ -115,8 +126,10 @@ function mineTb()
   if activeAction == 0 then
     ore = ore + 1
   elseif activeAction == 1 then
-    destroySprite(c.x, c.y)
+    upgradeSprite(c.x, c.y)
   elseif activeAction == 2 then
+    destroySprite(c.x, c.y)
+  elseif activeAction == 3 then
   end
   cleanUpTb()
 end
@@ -125,8 +138,22 @@ function barracksTb()
   if activeAction == 0 then
     addSprite({ "troop", c.x, c.y })
   elseif activeAction == 1 then
-    destroySprite(c.x, c.y)
+    upgradeSprite(c.x, c.y)
   elseif activeAction == 2 then
+    destroySprite(c.x, c.y)
+  elseif activeAction == 3 then
+  end
+  cleanUpTb()
+end
+
+function portTb()
+  if activeAction == 0 then
+    addSprite({ "ship", c.x, c.y })
+  elseif activeAction == 1 then
+    upgradeSprite(c.x, c.y)
+  elseif activeAction == 2 then
+    destroySprite(c.x, c.y)
+  elseif activeAction == 3 then
   end
   cleanUpTb()
 end

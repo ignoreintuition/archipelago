@@ -1,6 +1,9 @@
 function initUnit(spr, x, y)
   local u = {}
   u.type = unit
+  u.desc = spriteDesc[spr]
+  u.subType = spr
+  u.lvl = 0
   u.spr = sprites[spr]
   u.x = x
   u.y = y
@@ -53,6 +56,21 @@ function moveUnit(u, x, y)
     return true
   end
   return false
+end
+
+function upgradeUnit(u)
+  u.lvl = u.lvl + 1
+end
+
+function unitDialog(u)
+  dialog(
+    "unit info", {
+      "terr " .. u.terr,
+      u.subType,
+      "coord (" .. u.x .. ", " .. u.y .. ")",
+      u.desc
+    }, "lg"
+  )
 end
 
 function canTravel(u, x, y)

@@ -18,9 +18,18 @@ function _init()
     farm = 24,
     port = 25,
     mine = 26,
-    barracks = 29
+    barracks = 29,
+    port = 30
   }
-
+  spriteDesc = {
+    ship = "travels by sea. \ncan carry cargo \nor passengers.",
+    troop = "travels by land. \nrequires 1 food.",
+    house = "houses families.",
+    farm = "provides food. \nrequires farmers.",
+    port = "build Ships. \nload / unload goods.",
+    mine = "harvest ore",
+    barracks = "train peasants to fight."
+  }
   sMode = 1
   --select
   mMode = 2

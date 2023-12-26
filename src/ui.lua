@@ -69,9 +69,9 @@ function dInfo()
   mode = dMode
   local spr = getSpriteInfo(c.x, c.y)
   if spr.type == unit then
-    dialog("unit info", { "terr " .. spr.terr, "spr " .. spr.spr, "coord (" .. spr.x .. ", " .. spr.y .. ")" }, "lg")
+    unitDialog(spr)
   elseif spr.type == building then
-    dialog("building info", { "spr " .. spr.spr, "coord (" .. spr.x .. ", " .. spr.y .. ")" }, "lg")
+    buildingDialog(spr)
   else
     local tile = getTileInfo(c.x, c.y)
     dialog("tile info", { "tile " .. tile.terr, "coord (" .. c.x .. ", " .. c.y .. ")" }, "lg")

@@ -7,7 +7,9 @@ function initBuilding(spr, x, y)
   b.x = x
   b.y = y
   b.active = false
-  if b.spr == farm then
+  b.lvl = 0
+  b.description = spriteDesc[spr]
+  if spr == "farm" then
     food = food + 1
   end
   return b
@@ -20,7 +22,23 @@ end
 function updateBuilding(b)
 end
 
+function upgradeBuilding(b)
+  b.lvl = b.lvl + 1;
+end
+
 function selectBuilding(b)
   setToolbarActive(true, b.subType)
   return tMode
+end
+
+function buildingDialog(b)
+  dialog(
+    "building info", {
+      b.subType,
+      "level: " .. b.lvl,
+      "coord (" .. b.x .. ", " .. b.y .. ")",
+      b.description
+    },
+    "lg"
+  )
 end
