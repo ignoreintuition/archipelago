@@ -65,8 +65,10 @@ end
 function addSprite(v)
   if v[1] == "ship" or v[1] == "troop" then
     add(activeSprites, initUnit(v[1], v[2], v[3]))
+    mode = modes["select"]
   else
     add(activeSprites, initBuilding(v[1], v[2], v[3]))
+    mode = modes["select"]
   end
 end
 
@@ -80,14 +82,17 @@ function destroySprite(x, y)
           spr(explosion, x, y)
           explosion = explosion + 1
         end
+        mode = modes["select"]
         return true
       end
     end
   end
+  mode = modes["select"]
   return false
 end
 
 function upgradeSprite(x, y)
+  -- TODO accept / cancel upgrade
   for i, v in ipairs(activeSprites) do
     if v.type == building then
       if v.x == x and v.y == y then
@@ -96,5 +101,6 @@ function upgradeSprite(x, y)
       end
     end
   end
+  mode = modes["select"]
   return false
 end

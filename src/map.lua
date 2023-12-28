@@ -11,9 +11,7 @@ end
 
 function drawMap()
   cls()
-
   camera(mapX * 8, (mapY - 1) * 8)
-
   map(0, 0, 0, 0, 128, 64)
 end
 

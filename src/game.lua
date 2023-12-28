@@ -1,15 +1,15 @@
 function _init()
-  timer = 0
-  animTimer = 10
+  frame = { 2, 3 }
+  paused = false 
+  maxX = 127
+  maxY = 63
 
   water = 0
   land = 1
-
   building = 1
   unit = 2
 
-  frame1 = 2
-  frame2 = 3
+  day = 0
 
   sprites = {
     ship = 19,
@@ -30,20 +30,12 @@ function _init()
     mine = "harvest ore",
     barracks = "train peasants to fight."
   }
-  sMode = 1
-  --select
-  mMode = 2
-  --move
-  tMode = 3
-  --toolbar
-  dMode = 4
-  --dialog
-
-  wood = 0
-  food = 0
-  ore = 0
-  gold = 0
-  day = 1
+  modes = {
+    select = 1,
+    move = 2,
+    toolbar = 3,
+    dialog = 4
+  }
 
   initMap()
   initSprites({
@@ -56,19 +48,17 @@ function _init()
   initEnemy()
   initUi()
   initToolbar()
-  printh("\n\n-==ARCHIPELAGO==-\nby IgnoreIntuition\nLocked and stocked")
-  printh(stat(93) .. ":" .. stat(94) .. ":" .. stat(95))
-  printh("mem usage: " .. stat(0))
-  printh("CPU: " .. stat(1))
+  initTimers()
+  initResources()
+  printStats()
 end
 
 function _update()
-  if (timer < 0) timer = animTimer
-  timer = timer - 1
   updateMap()
   updateSprites()
   updateEnemy()
   updateUi()
+  updateTimers()
 end
 
 function _draw()
@@ -78,4 +68,11 @@ function _draw()
   drawToolbar()
   drawDialog()
   drawUi()
+end
+
+function printStats()
+  printh("\n\n-==ARCHIPELAGO==-\nby IgnoreIntuition\nLocked and stocked")
+  printh(stat(93) .. ":" .. stat(94) .. ":" .. stat(95))
+  printh("mem usage: " .. stat(0))
+  printh("CPU: " .. stat(1))
 end

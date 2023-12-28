@@ -1,17 +1,15 @@
 function initBuilding(spr, x, y)
-  local b = {}
-  b.sel = false
-  b.spr = sprites[spr]
-  b.type = building
-  b.subType = spr
-  b.x = x
-  b.y = y
-  b.active = false
-  b.lvl = 0
-  b.description = spriteDesc[spr]
-  if spr == "farm" then
-    food = food + 1
-  end
+  local b = {
+    sel = false,
+    spr = sprites[spr],
+    type = building,
+    subType = spr,
+    x = x,
+    y = y,
+    active = false,
+    lvl = 0,
+    description = spriteDesc[spr]
+  }
   return b
 end
 
@@ -23,12 +21,20 @@ function updateBuilding(b)
 end
 
 function upgradeBuilding(b)
-  b.lvl = b.lvl + 1;
+  dialog(
+    "upgrade",
+    { "cost:\ntwo wood" },
+    "sm"
+  )
+  mode = modes["dialog"]
+  b.lvl = b.lvl + 1
 end
 
 function selectBuilding(b)
   setToolbarActive(true, b.subType)
-  return tMode
+  prevMode = mode
+  mode = modes["toolbar"]
+  return true
 end
 
 function buildingDialog(b)

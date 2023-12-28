@@ -1,72 +1,76 @@
 function initUi()
-  mode = 1
-  c = {}
-  c.x = 0
-  c.y = 0
-  c.w = 8
-  c.h = 8
+  mode = modes["select"]
+  prevMode = modes["select"]
+  c = {
+    x = 0,
+    y = 0,
+    w = 8,
+    h = 8
+  }
 end
 
 function updateUi()
-  if mode == sMode or mode == mMode then
+  if mode == modes["select"] or mode == modes["move"] then
     newX = c.x
     newY = c.y
-    if btnp(0) then
+    if btnp(⬅️) then
       newX = newX - 1
     end
-    if btnp(1) then
+    if btnp(➡️) then
       newX = newX + 1
     end
-    if btnp(2) then
+    if btnp(⬆️) then
       newY = newY - 1
     end
-    if btnp(3) then
+    if btnp(⬇️) then
       newY = newY + 1
     end
-    c.x = mid(0, newX, 127)
-    c.y = mid(0, newY, 63)
+    c.x = mid(0, newX, maxX)
+    c.y = mid(0, newY, maxY)
   end
 end
 
 function drawUi()
   drawOverlay()
+  drawSelector()
+end
 
-  if mode == sMode or mode == mMode then
+function drawSelector()
+  if mode == modes["select"] then
     rect(c.x * 8, c.y * 8, c.x * 8 + c.w, c.y * 8 + c.h, 5)
-    if btnp(4) then
-      dInfo()
+    if btnp(🅾️) then
+      prevMode = mode
+      infoDialog()
     end
-    if btnp(5) then
-      action(c.x, c.y)
+    if btnp(❎) then
+      local isSprite = selectSprite(c.x, c.y)
+      if not isSprite and not isTile("water", c.x, c.y) then
+        prevMode = mode
+        setToolbarActive(true, "main")
+        mode = modes["toolbar"]
+      end
     end
-  elseif mode == tMode then
+  elseif mode == modes["toolbar"] then
     showToolbar()
-  elseif mode == dMode then
-    if btnp(4) or btnp(5) then
+  elseif mode == modes["dialog"] then
+    if btnp(🅾️) or btnp(❎) then
       resetDialog()
-      mode = 1
+      mode = prevMode
+    end
+  elseif mode == modes["move"] then
+    rect(c.x * 8, c.y * 8, c.x * 8 + c.w, c.y * 8 + c.h, 5)
+    if btnp(❎) then
+      if moveSprite(c.x, c.y) then
+        mode = modes["select"]
+      else
+        sfx(0)
+      end
     end
   end
 end
 
-function action(x, y)
-  if mode == sMode then
-    mode = selectSprite(x, y)
-    if not mode then
-      setToolbarActive(true, "main")
-      mode = tMode
-    end
-  elseif mode == mMode then
-    if moveSprite(x, y) then
-      mode = sMode
-    else
-      sfx(0)
-    end
-  end
-end
-
-function dInfo()
-  mode = dMode
+function infoDialog()
+  mode = modes["dialog"]
   local spr = getSpriteInfo(c.x, c.y)
   if spr.type == unit then
     unitDialog(spr)
@@ -84,11 +88,11 @@ function drawOverlay()
   rectfill(x, y, x + 128, y + 7, 0)
   print("day" .. day, x, y + 1, 15)
   spr(54, (x + 4) * 8, y)
-  print(wood, (x + 5) * 8 + 2, y + 1, 15)
+  print(resource["wood"], (x + 5) * 8 + 2, y + 1, 15)
   spr(55, (x + 7) * 8, y)
-  print(food, (x + 8) * 8 + 2, y + 1, 15)
+  print(resource["food"], (x + 8) * 8 + 2, y + 1, 15)
   spr(56, (x + 10) * 8, y)
-  print(ore, (x + 11) * 8 + 2, y + 1, 15)
+  print(resource["ore"], (x + 11) * 8 + 2, y + 1, 15)
   spr(57, (x + 13) * 8, y)
-  print(gold, (x + 14) * 8 + 2, y + 1, 15)
+  print(resource["gold"], (x + 14) * 8 + 2, y + 1, 15)
 end

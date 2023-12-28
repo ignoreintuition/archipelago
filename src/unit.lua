@@ -1,16 +1,17 @@
 function initUnit(spr, x, y)
-  local u = {}
-  u.type = unit
-  u.desc = spriteDesc[spr]
-  u.subType = spr
-  u.lvl = 0
-  u.spr = sprites[spr]
-  u.x = x
-  u.y = y
-  u.tx = x
-  u.ty = y
-  u.active = false
-  u.sel = false
+  local u = {
+    type = unit,
+    desc = spriteDesc[spr],
+    subType = spr,
+    lvl = 0,
+    spr = sprites[spr],
+    x = x,
+    y = y,
+    tx = x,
+    ty = y,
+    active = false,
+    sel = false
+  }
   if u.spr == sprites["ship"] then
     u.terr = land
   elseif u.spr == sprites["troop"] then
@@ -44,8 +45,10 @@ function drawUnit(u)
 end
 
 function selectUnit(u)
+  prevMode = mode
+  mode = modes["move"]
   u.sel = true
-  return mMode
+  return true
 end
 
 function moveUnit(u, x, y)
