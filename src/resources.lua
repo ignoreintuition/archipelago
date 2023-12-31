@@ -1,6 +1,6 @@
 function initResources()
   resource = {
-    wood = 0,
+    wood = 4,
     food = 0,
     ore = 0,
     gold = 0

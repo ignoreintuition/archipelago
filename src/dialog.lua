@@ -2,16 +2,23 @@ dSize = {
   lg = { 20, 8, 88, 96 },
   sm = { 40, 16, 44, 48 }
 }
-d = { active = false }
+d = {
+  active = false,
+  resolved = false
+}
+events = {
+  closeWindow = false
+}
 
 function dialog(t, c, sz)
   d = {
     active = true,
+    resolved = false,
     c = c,
     t = t,
     sz = sz,
     x = mapX * 8 + dSize[sz][1],
-    y = mapY * 8 + dSize[sz][2]
+    y = mapY * 8 + dSize[sz][2],
   }
   mode = modes["dialog"]
 end
@@ -29,5 +36,6 @@ function drawDialog()
 end
 
 function resetDialog()
-  d = { active = false }
+  d["active"] = false
+  mode = prevMode
 end

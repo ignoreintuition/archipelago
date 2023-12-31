@@ -8,7 +8,8 @@ function initBuilding(spr, x, y)
     y = y,
     active = false,
     lvl = 0,
-    description = spriteDesc[spr]
+    description = spriteDesc[spr],
+    queueForUpdate = false
   }
   return b
 end
@@ -18,6 +19,21 @@ function drawBuilding(b)
 end
 
 function updateBuilding(b)
+  if d["resolved"] and b["queueForUpdate"] then
+    b["queueForUpdate"] = false
+    if resource["wood"] >= 2 then
+      b.lvl = b.lvl + 1
+      resource["wood"] = resource["wood"] - 2
+    else
+      dialog(
+        "upgrade",
+        { "not enough\nwood" },
+        "sm"
+      )
+    end
+  elseif not d["active"] and b["queueForUpdate"] then
+    b["queueForUpdate"] = false
+  end
 end
 
 function upgradeBuilding(b)
@@ -26,8 +42,8 @@ function upgradeBuilding(b)
     { "cost:\ntwo wood" },
     "sm"
   )
+  b["queueForUpdate"] = true
   mode = modes["dialog"]
-  b.lvl = b.lvl + 1
 end
 
 function selectBuilding(b)

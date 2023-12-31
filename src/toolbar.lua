@@ -3,41 +3,41 @@ toolbars = {
   width = 36,
   height = 64,
   main = {
-    { "build house", 48 },
-    { "build farm", 49 },
-    { "build mine", 50 },
-    { "barracks", 53 },
-    { "build port", 25 },
-    { "cancel", 52 }
+    { "build house", 48, "addSprite", "house" },
+    { "build farm", 49, "addSprite", "farm" },
+    { "build mine", 50, "addSprite", "mine" },
+    { "barracks", 53, "addSprite", "barracks" },
+    { "build port", 25, "addSprite", "port" },
+    { "cancel", 52, "cancel" }
   },
   house = {
-    { "upgrade", 58 },
-    { "destroy", 51 },
-    { "cancel", 52 }
+    { "upgrade", 58, "upgradeSprite" },
+    { "destroy", 51, "destroySprite" },
+    { "cancel", 52, "cancel" }
   },
   farm = {
-    { "harvest", 49 },
-    { "upgrade", 58 },
-    { "destroy", 51 },
-    { "cancel", 52 }
+    { "harvest", 49, "harvestResource", "food" },
+    { "upgrade", 58, "upgradeSprite" },
+    { "destroy", 51, "destroySprite" },
+    { "cancel", 52, "cancel" }
   },
   barracks = {
-    { "train", 53 },
-    { "upgrade", 58 },
-    { "destroy", 51 },
-    { "cancel", 52 }
+    { "train", 53, "addSprite", "troop" },
+    { "upgrade", 58, "upgradeSprite" },
+    { "destroy", 51, "destroySprite" },
+    { "cancel", 52, "cancel" }
   },
   mine = {
-    { "mine ore", 50 },
-    { "upgrade", 58 },
-    { "destroy", 51 },
-    { "cancel", 52 }
+    { "mine ore", 50, "harvestResource", "ore" },
+    { "upgrade", 58, "upgradeSprite" },
+    { "destroy", 51, "destroySprite" },
+    { "cancel", 52, "cancel" }
   },
   port = {
-    { "build", 19 },
-    { "upgrade", 58 },
-    { "destroy", 51 },
-    { "cancel", 52 }
+    { "build", 19, "addSprite", "ship" },
+    { "upgrade", 58, "upgradeSprite" },
+    { "destroy", 51, "destroySprite" },
+    { "cancel", 52, "cancel" }
   }
 }
 
@@ -74,109 +74,34 @@ function showToolbar()
   elseif btnp(➡️) then
     activeAction = (activeAction + 1) % count(toolbars[toolbars["current"]])
   elseif btnp(🅾️) then
-    if toolbars["current"] == "main" then
-      mainTb()
-    elseif toolbars["current"] == "house" then
-      houseTb()
-    elseif toolbars["current"] == "farm" then
-      farmTb()
-    elseif toolbars["current"] == "mine" then
-      mineTb()
-    elseif toolbars["current"] == "barracks" then
-      barracksTb()
-    elseif toolbars["current"] == "port" then
-      portTb()
-    end
+    toolbarFunctions[toolbars[toolbars["current"]][activeAction + 1][3]](toolbars[toolbars["current"]][activeAction + 1][4])
+    cleanUpTb()
   elseif btnp(❎) then
     setToolbarActive(false)
     mode = modes["select"]
   end
-end
--- TODO Optimize toolbar generation
-
-function mainTb()
-  if activeAction == 0 then
-    addSprite({ "house", c.x, c.y })
-  elseif activeAction == 1 then
-    addSprite({ "farm", c.x, c.y })
-  elseif activeAction == 2 then
-    addSprite({ "mine", c.x, c.y })
-  elseif activeAction == 3 then
-    addSprite({ "barracks", c.x, c.y })
-  elseif activeAction == 4 then
-    addSprite({ "port", c.x, c.y })
-  elseif activeAction == 5 then
-    mode = modes["select"]
-  end
-  cleanUpTb()
-end
-
-function houseTb()
-  if activeAction == 0 then
-    upgradeSprite(c.x, c.y)
-  elseif activeAction == 1 then
-    destroySprite(c.x, c.y)
-  elseif activeAction == 2 then
-    mode = modes["select"]
-  end
-  cleanUpTb()
-end
-
-function farmTb()
-  if activeAction == 0 then
-    resource["food"] = resource["food"] + 1
-    mode = modes["select"]
-  elseif activeAction == 1 then
-    upgradeSprite(c.x, c.y)
-  elseif activeAction == 2 then
-    destroySprite(c.x, c.y)
-  elseif activeAction == 3 then
-    mode = modes["select"]
-  end
-  cleanUpTb()
-end
-
-function mineTb()
-  if activeAction == 0 then
-    resource["ore"] = resource["ore"] + 1
-    mode = modes["select"]
-  elseif activeAction == 1 then
-    upgradeSprite(c.x, c.y)
-  elseif activeAction == 2 then
-    destroySprite(c.x, c.y)
-  elseif activeAction == 3 then
-    mode = modes["select"]
-  end
-  cleanUpTb()
-end
-
-function barracksTb()
-  if activeAction == 0 then
-    addSprite({ "troop", c.x, c.y })
-  elseif activeAction == 1 then
-    upgradeSprite(c.x, c.y)
-  elseif activeAction == 2 then
-    destroySprite(c.x, c.y)
-  elseif activeAction == 3 then
-    mode = modes["select"]
-  end
-  cleanUpTb()
-end
-
-function portTb()
-  if activeAction == 0 then
-    addSprite({ "ship", c.x, c.y })
-  elseif activeAction == 1 then
-    upgradeSprite(c.x, c.y)
-  elseif activeAction == 2 then
-    destroySprite(c.x, c.y)
-  elseif activeAction == 3 then
-    mode = modes["select"]
-  end
-  cleanUpTb()
 end
 
 function cleanUpTb()
   setToolbarActive(false)
   activeAction = 0
 end
+
+toolbarFunctions = {
+  addSprite = function(arg)
+    addSprite({ arg, c.x, c.y })
+  end,
+  destroySprite = function(arg)
+    destroySprite(c.x, c.y)
+  end,
+  upgradeSprite = function(arg)
+    upgradeSprite(c.x, c.y)
+  end,
+  cancel = function(arg)
+    mode = modes["select"]
+  end,
+  harvestResource = function(arg)
+    resource[arg] = resource[arg] + 1
+    mode = modes["select"]
+  end
+}

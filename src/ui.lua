@@ -53,9 +53,11 @@ function drawSelector()
   elseif mode == modes["toolbar"] then
     showToolbar()
   elseif mode == modes["dialog"] then
-    if btnp(🅾️) or btnp(❎) then
+    if btnp(🅾️) then
+      d["resolved"] = true
       resetDialog()
-      mode = prevMode
+    elseif btnp(❎) then
+      resetDialog()
     end
   elseif mode == modes["move"] then
     rect(c.x * 8, c.y * 8, c.x * 8 + c.w, c.y * 8 + c.h, 5)
@@ -78,7 +80,11 @@ function infoDialog()
     buildingDialog(spr)
   else
     local tile = getTileInfo(c.x, c.y)
-    dialog("tile info", { "tile " .. tile.terr, "coord (" .. c.x .. ", " .. c.y .. ")" }, "lg")
+    dialog(
+      "tile info",
+      { "tile " .. tile.terr, "coord (" .. c.x .. ", " .. c.y .. ")" },
+      "lg"
+    )
   end
 end
 
