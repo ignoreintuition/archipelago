@@ -38,6 +38,7 @@ function _init()
   }
 
   initMap()
+  initBroker()
   initSprites({
     { "ship", 1, 1 },
     { "ship", 10, 10 },

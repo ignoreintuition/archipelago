@@ -5,6 +5,7 @@ __lua__
 --by IgnoreIntuition
 --game
 #include src/game.lua
+#include src/pubsub.lua
 #include src/helpers.lua
 #include src/dialog.lua
 #include src/ui.lua

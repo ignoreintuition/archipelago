@@ -8,6 +8,7 @@ function initTimers()
   }
   timer = 0
   animTimer = 10
+  addMessageToQueue("day")
 end
 
 function updateTimers()
@@ -16,6 +17,7 @@ function updateTimers()
   if timers["day"]["curr"] < 0 then
     timers["day"]["curr"] = timers["day"]["max"]
     day = day + 1
+    alertSubscribers("day")
   end
   timers["day"]["curr"] = timers["day"]["curr"] - 1
 end

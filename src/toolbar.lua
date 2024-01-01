@@ -90,9 +90,11 @@ end
 toolbarFunctions = {
   addSprite = function(arg)
     addSprite({ arg, c.x, c.y })
+    updateProduction(arg, 1)
   end,
   destroySprite = function(arg)
     destroySprite(c.x, c.y)
+    updateProduction(arg, -1)
   end,
   upgradeSprite = function(arg)
     upgradeSprite(c.x, c.y)
