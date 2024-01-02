@@ -5,7 +5,8 @@ productionResource = {
   port = "none",
   barracks = "none",
   storage = "none",
-  woodmill = "wood"
+  woodmill = "wood",
+  waystation = "none"
 }
 
 maxResource = 99

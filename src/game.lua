@@ -24,7 +24,8 @@ function _init()
     barracks = 29,
     port = 30,
     storage = 31,
-    woodmill = 35
+    woodmill = 35,
+    waystation = 37
 
   }
   spriteDesc = {
@@ -36,7 +37,8 @@ function _init()
     mine = "harvest ore",
     barracks = "train peasants to fight.",
     woodmill = "gather wood.",
-    storage = "Allows you to store \nadditional goods."
+    waystation = "waypoint between trade routes",
+    storage = "allows you to store \nadditional goods."
   }
   modes = {
     select = 1,

@@ -1,5 +1,4 @@
 upgradeIcon = { "upgrade", 58, "upgradeSprite" }
-destroyIcon = { "destroy", 51, "destroySprite" }
 cancelIcon = { "cancel", 52, "cancel" }
 toolbars = {
   current = "buildLand",
@@ -13,6 +12,7 @@ toolbars = {
     cancelIcon
   },
   buildWater = {
+    { "waystation", 37, "addSprite", "waystation" },
     cancelIcon
   },
   buildBeach = {
@@ -29,41 +29,46 @@ toolbars = {
   },
   house = {
     upgradeIcon,
-    destroyIcon,
+    { "destroy", 51, "destroySprite", "house" },
     cancelIcon
   },
   farm = {
     { "harvest", 49, "harvestResource", "food" },
     upgradeIcon,
-    destroyIcon,
+    { "destroy", 51, "destroySprite", "farm" },
     cancelIcon
   },
   barracks = {
     { "train", 53, "addSprite", "troop" },
     upgradeIcon,
-    destroyIcon,
+    { "destroy", 51, "destroySprite", "barracks" },
     cancelIcon
   },
   mine = {
     { "mine ore", 50, "harvestResource", "ore" },
     upgradeIcon,
-    destroyIcon,
+    { "destroy", 51, "destroySprite", "mine" },
     cancelIcon
   },
   port = {
     { "build", 19, "addSprite", "ship" },
     upgradeIcon,
-    destroyIcon,
+    { "destroy", 51, "destroySprite", "port" },
     cancelIcon
   },
   storage = {
     upgradeIcon,
-    destroyIcon,
+    { "destroy", 51, "destroySprite", "storage" },
     cancelIcon
   },
   woodmill = {
     upgradeIcon,
-    destroyIcon,
+    { "destroy", 51, "destroySprite", "woodmill" },
+    cancelIcon
+  },
+  waystation = {
+    upgradeIcon,
+    { "destroy", 51, "destroySprite", "waystation" },
     cancelIcon
   }
 }

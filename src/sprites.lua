@@ -18,10 +18,13 @@ end
 
 function drawSprites()
   for i, v in ipairs(activeSprites) do
+    if v.type != unit then
+      drawBuilding(v)
+    end
+  end
+  for i, v in ipairs(activeSprites) do
     if v.type == unit then
       drawUnit(v)
-    else
-      drawBuilding(v)
     end
   end
 end

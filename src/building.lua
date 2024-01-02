@@ -19,6 +19,7 @@ function drawBuilding(b)
 end
 
 function updateBuilding(b)
+  b.spr = animate(b)
   if d["resolved"] and b["queueForUpdate"] then
     b["queueForUpdate"] = false
     if resource["wood"] >= 2 then

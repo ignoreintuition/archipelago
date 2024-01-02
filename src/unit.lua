@@ -13,9 +13,9 @@ function initUnit(spr, x, y)
     sel = false
   }
   if u.spr == sprites["ship"] then
-    u.terr = land
-  elseif u.spr == sprites["troop"] then
     u.terr = water
+  elseif u.spr == sprites["troop"] then
+    u.terr = land
   end
   return u
 end
@@ -77,5 +77,5 @@ function unitDialog(u)
 end
 
 function canTravel(u, x, y)
-  return fget(u.spr, u.terr) == fget(mget(x, y), u.terr)
+  return fget(u.spr, u.terr) == true and fget(mget(x, y), u.terr) == true
 end
