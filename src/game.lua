@@ -6,6 +6,9 @@ function _init()
 
   water = 0
   land = 1
+  beach = 4
+  mountain = 5
+  forest = 6
   building = 1
   unit = 2
 
@@ -19,7 +22,10 @@ function _init()
     port = 25,
     mine = 26,
     barracks = 29,
-    port = 30
+    port = 30,
+    storage = 31,
+    woodmill = 35
+
   }
   spriteDesc = {
     ship = "travels by sea. \ncan carry cargo \nor passengers.",
@@ -28,7 +34,9 @@ function _init()
     farm = "provides food. \nrequires farmers.",
     port = "build Ships. \nload / unload goods.",
     mine = "harvest ore",
-    barracks = "train peasants to fight."
+    barracks = "train peasants to fight.",
+    woodmill = "gather wood.",
+    storage = "Allows you to store \nadditional goods."
   }
   modes = {
     select = 1,

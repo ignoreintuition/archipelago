@@ -1,43 +1,70 @@
+upgradeIcon = { "upgrade", 58, "upgradeSprite" }
+destroyIcon = { "destroy", 51, "destroySprite" }
+cancelIcon = { "cancel", 52, "cancel" }
 toolbars = {
-  current = "main",
+  current = "buildLand",
   width = 36,
   height = 64,
-  main = {
-    { "build house", 48, "addSprite", "house" },
-    { "build farm", 49, "addSprite", "farm" },
-    { "build mine", 50, "addSprite", "mine" },
+  buildLand = {
+    { "house", 48, "addSprite", "house" },
+    { "farm", 49, "addSprite", "farm" },
     { "barracks", 53, "addSprite", "barracks" },
-    { "build port", 25, "addSprite", "port" },
-    { "cancel", 52, "cancel" }
+    { "storage", 55, "addSprite", "storage" },
+    cancelIcon
+  },
+  buildWater = {
+    cancelIcon
+  },
+  buildBeach = {
+    { "port", 25, "addSprite", "port" },
+    cancelIcon
+  },
+  buildMountain = {
+    { "build mine", 50, "addSprite", "mine" },
+    cancelIcon
+  },
+  buildForest = {
+    { "wood mill", 54, "addSprite", "woodmill" },
+    cancelIcon
   },
   house = {
-    { "upgrade", 58, "upgradeSprite" },
-    { "destroy", 51, "destroySprite" },
-    { "cancel", 52, "cancel" }
+    upgradeIcon,
+    destroyIcon,
+    cancelIcon
   },
   farm = {
     { "harvest", 49, "harvestResource", "food" },
-    { "upgrade", 58, "upgradeSprite" },
-    { "destroy", 51, "destroySprite" },
-    { "cancel", 52, "cancel" }
+    upgradeIcon,
+    destroyIcon,
+    cancelIcon
   },
   barracks = {
     { "train", 53, "addSprite", "troop" },
-    { "upgrade", 58, "upgradeSprite" },
-    { "destroy", 51, "destroySprite" },
-    { "cancel", 52, "cancel" }
+    upgradeIcon,
+    destroyIcon,
+    cancelIcon
   },
   mine = {
     { "mine ore", 50, "harvestResource", "ore" },
-    { "upgrade", 58, "upgradeSprite" },
-    { "destroy", 51, "destroySprite" },
-    { "cancel", 52, "cancel" }
+    upgradeIcon,
+    destroyIcon,
+    cancelIcon
   },
   port = {
     { "build", 19, "addSprite", "ship" },
-    { "upgrade", 58, "upgradeSprite" },
-    { "destroy", 51, "destroySprite" },
-    { "cancel", 52, "cancel" }
+    upgradeIcon,
+    destroyIcon,
+    cancelIcon
+  },
+  storage = {
+    upgradeIcon,
+    destroyIcon,
+    cancelIcon
+  },
+  woodmill = {
+    upgradeIcon,
+    destroyIcon,
+    cancelIcon
   }
 }
 
@@ -89,12 +116,16 @@ end
 
 toolbarFunctions = {
   addSprite = function(arg)
-    addSprite({ arg, c.x, c.y })
-    updateProduction(arg, 1)
+    local spr = addSprite({ arg, c.x, c.y })
+    if arg != "troop" and arg != "ship" then
+      updateProduction(arg, 1)
+    end
   end,
   destroySprite = function(arg)
     destroySprite(c.x, c.y)
-    updateProduction(arg, -1)
+    if arg != "troop" and arg != "ship" then
+      updateProduction(arg, -1)
+    end
   end,
   upgradeSprite = function(arg)
     upgradeSprite(c.x, c.y)

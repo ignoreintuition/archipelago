@@ -44,9 +44,19 @@ function drawSelector()
     end
     if btnp(❎) then
       local isSprite = selectSprite(c.x, c.y)
-      if not isSprite and not isTile("water", c.x, c.y) then
+      if not isSprite then
         prevMode = mode
-        setToolbarActive(true, "main")
+        if isTile(water, c.x, c.y) then
+          setToolbarActive(true, "buildWater")
+        elseif isTile(land, c.x, c.y) then
+          setToolbarActive(true, "buildLand")
+        elseif isTile(beach, c.x, c.y) then
+          setToolbarActive(true, "buildBeach")
+        elseif isTile(mountain, c.x, c.y) then
+          setToolbarActive(true, "buildMountain")
+        elseif isTile(forest, c.x, c.y) then
+          setToolbarActive(true, "buildForest")
+        end
         mode = modes["toolbar"]
       end
     end

@@ -3,7 +3,9 @@ productionResource = {
   mine = "ore",
   house = "none",
   port = "none",
-  barracks = "none"
+  barracks = "none",
+  storage = "none",
+  woodmill = "wood"
 }
 
 maxResource = 99
