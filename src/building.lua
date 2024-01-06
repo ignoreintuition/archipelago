@@ -49,8 +49,6 @@ end
 
 function selectBuilding(b)
   setToolbarActive(true, b.subType)
-  prevMode = mode
-  mode = modes["toolbar"]
   return true
 end
 

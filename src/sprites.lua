@@ -30,16 +30,22 @@ function drawSprites()
 end
 
 function selectSprite(x, y)
+  local selectable = {}
   for i, v in ipairs(activeSprites) do
     if v.type == unit then
       if v.x == x and v.y == y then
-        return selectUnit(v)
+        add(selectable, v)
       end
     elseif v.type == building then
       if v.x == x and v.y == y then
-        return selectBuilding(v)
+        add(selectable, v)
       end
     end
+  end
+  if next(selectable) != nil then
+    setToolbarActive(true, "selectSprites", selectable)
+    mode = modes["toolbar"]
+    return true
   end
   return false
 end

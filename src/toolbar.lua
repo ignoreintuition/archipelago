@@ -70,7 +70,8 @@ toolbars = {
     upgradeIcon,
     { "destroy", 51, "destroySprite", "waystation" },
     cancelIcon
-  }
+  },
+  selectSprites = {}
 }
 
 function initToolbar()
@@ -78,8 +79,15 @@ function initToolbar()
   toolbarActive = false
 end
 
-function setToolbarActive(val, tb)
+function setToolbarActive(val, tb, sel)
   toolbarActive = val
+  if tb == "selectSprites" then
+    selActive = sel
+    for i, v in ipairs(sel) do
+      add(toolbars["selectSprites"], { v.subType, v.spr, "selectUnit", i })
+    end
+    add(toolbars["selectSprites"], cancelIcon)
+  end
   if (val) toolbars["current"] = tb
 end
 
@@ -89,7 +97,6 @@ function drawToolbar()
     local y = mapY * 8 + toolbars["height"]
     rect(x - 1, y - 1, x + 49, y + 17, 13)
     rectfill(x, y, x + 48, y + 16, 0)
-
     for i, v in ipairs(toolbars[toolbars["current"]]) do
       spr(toolbars[toolbars["current"]][i][2], x + (i - 1) * 8, y)
     end
@@ -106,17 +113,20 @@ function showToolbar()
   elseif btnp(➡️) then
     activeAction = (activeAction + 1) % count(toolbars[toolbars["current"]])
   elseif btnp(🅾️) then
+    setToolbarActive(false)
     toolbarFunctions[toolbars[toolbars["current"]][activeAction + 1][3]](toolbars[toolbars["current"]][activeAction + 1][4])
     cleanUpTb()
   elseif btnp(❎) then
     setToolbarActive(false)
+    cleanUpTb()
     mode = modes["select"]
   end
 end
 
 function cleanUpTb()
-  setToolbarActive(false)
   activeAction = 0
+  selActive = {}
+  toolbars["selectSprites"] = {}
 end
 
 toolbarFunctions = {
@@ -141,5 +151,12 @@ toolbarFunctions = {
   harvestResource = function(arg)
     resource[arg] = resource[arg] + 1
     mode = modes["select"]
+  end,
+  selectUnit = function(arg)
+    if selActive[arg].type == unit then
+      selectUnit(selActive[arg])
+    elseif selActive[arg].type == building then
+      selectBuilding(selActive[arg])
+    end
   end
 }
