@@ -84,7 +84,7 @@ function setToolbarActive(val, tb, sel)
   if tb == "selectSprites" then
     selActive = sel
     for i, v in ipairs(sel) do
-      add(toolbars["selectSprites"], { v.subType, v.spr, "selectUnit", i })
+      add(toolbars["selectSprites"], { "sel " .. v.subType, v.spr, "selectUnit", i })
     end
     add(toolbars["selectSprites"], cancelIcon)
   end

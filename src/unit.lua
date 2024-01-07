@@ -10,7 +10,9 @@ function initUnit(spr, x, y)
     tx = x,
     ty = y,
     active = false,
-    sel = false
+    sel = false,
+    queueForUpdate = false,
+    queueForDecomm = false
   }
   if u.spr == sprites["ship"] then
     u.terr = water
@@ -22,6 +24,20 @@ end
 
 function updateUnit(u)
   u.spr = animate(u)
+  if d["resolved"] and u["queueForUpdate"] then
+    mode = modes["select"]
+    u["queueForUpdate"] = false
+    u.lvl = u.lvl + 1
+  elseif not d["active"] and u["queueForUpdate"] then
+    mode = modes["select"]
+    u["queueForUpdate"] = false
+  end
+  if d["resolved"] and u["queueForDecomm"] then
+    u["queueForDecomm"] = false
+    destroySprite(u.x, u.y)
+  elseif not d["active"] and u["queueForDecomm"] then
+    u["queueForDecomm"] = false
+  end
 end
 
 function drawUnit(u)
@@ -52,23 +68,44 @@ function selectUnit(u)
 end
 
 function moveUnit(u, x, y)
+  if u.x == x and u.y == y then 
+    mode = modes["select"]
+    return true
+  end
+  for i, v in ipairs(activeSprites) do
+    if v.x == x and v.y == y then
+      if v.type == unit then
+        upgradeUnit(v, u)
+        return true
+      elseif v.type == building then
+        mode = modes["select"]
+        return false
+      end
+    end
+  end
   if fget(u.spr, u.terr) == fget(mget(x, y), u.terr) then
     u.tx = x
     u.ty = y
     u.active = true
+    mode = modes["select"]
     return true
   end
+  sfx(0)
   return false
 end
 
-function upgradeUnit(u)
-  u.lvl = u.lvl + 1
+function upgradeUnit(v, u)
+  dialog("merge", { "combine\nunits" }, "sm")
+  v["queueForUpdate"] = true
+  u["queueForDecomm"] = true
+  mode = modes["dialog"]
 end
 
 function unitDialog(u)
   dialog(
     "unit info", {
       "terr " .. u.terr,
+      "level: " .. u.lvl,
       u.subType,
       "coord (" .. u.x .. ", " .. u.y .. ")",
       u.desc

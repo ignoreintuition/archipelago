@@ -11,7 +11,6 @@ function addMessageToQueue(msg)
 end
 
 function subscribeToMessage(sub, msg, cb)
-
   add(subscribers, {sub, msg, cb})
 end
 

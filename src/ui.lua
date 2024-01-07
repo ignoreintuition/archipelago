@@ -72,11 +72,7 @@ function drawSelector()
   elseif mode == modes["move"] then
     rect(c.x * 8, c.y * 8, c.x * 8 + c.w, c.y * 8 + c.h, 5)
     if btnp(❎) then
-      if moveSprite(c.x, c.y) then
-        mode = modes["select"]
-      else
-        sfx(0)
-      end
+      moveSprite(c.x, c.y)
     end
   end
 end
