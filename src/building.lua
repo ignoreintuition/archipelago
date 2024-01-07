@@ -7,7 +7,7 @@ function initBuilding(spr, x, y)
     x = x,
     y = y,
     active = false,
-    lvl = 0,
+    lvl = 1,
     description = spriteDesc[spr],
     queueForUpdate = false
   }

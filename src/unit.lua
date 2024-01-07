@@ -3,7 +3,7 @@ function initUnit(spr, x, y)
     type = unit,
     desc = spriteDesc[spr],
     subType = spr,
-    lvl = 0,
+    lvl = 1,
     spr = sprites[spr],
     x = x,
     y = y,
@@ -12,7 +12,8 @@ function initUnit(spr, x, y)
     active = false,
     sel = false,
     queueForUpdate = false,
-    queueForDecomm = false
+    queueForDecomm = false,
+    queuedUnits = 0
   }
   if u.spr == sprites["ship"] then
     u.terr = water
@@ -27,7 +28,8 @@ function updateUnit(u)
   if d["resolved"] and u["queueForUpdate"] then
     mode = modes["select"]
     u["queueForUpdate"] = false
-    u.lvl = u.lvl + 1
+    u.lvl = u.lvl + u.queuedUnits
+    u.queuedUnits = 0
   elseif not d["active"] and u["queueForUpdate"] then
     mode = modes["select"]
     u["queueForUpdate"] = false
@@ -97,6 +99,7 @@ end
 function upgradeUnit(v, u)
   dialog("merge", { "combine\nunits" }, "sm")
   v["queueForUpdate"] = true
+  v["queuedUnits"] = u.lvl
   u["queueForDecomm"] = true
   mode = modes["dialog"]
 end
