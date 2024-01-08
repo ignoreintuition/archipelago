@@ -49,13 +49,7 @@ function _init()
 
   initMap()
   initBroker()
-  initSprites({
-    { "ship", 1, 1 },
-    { "ship", 10, 10 },
-    { "ship", 18, 3 },
-    { "troop", 5, 2 },
-    { "troop", 6, 2 }
-  })
+  initSprites({ { "ship", 1, 1 } })
   initEnemy()
   initUi()
   initToolbar()

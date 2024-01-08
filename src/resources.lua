@@ -9,7 +9,7 @@ productionResource = {
   waystation = "none"
 }
 
-maxResource = 99
+maxResource = 10
 
 function initResources()
   resource = {
@@ -28,10 +28,9 @@ function initResources()
     "production", "day",
     function()
       for k, v in pairs(resource) do
+        if checkStorage() then
           resource[k] = production[k] + resource[k]
-          if resource[k] > maxResource then
-             resource[k] = maxResource
-          end
+        end
       end
     end
   )
@@ -41,4 +40,15 @@ function updateProduction(resource, delta)
   if productionResource[resource] != "none" then
     production[productionResource[resource]] = production[productionResource[resource]] + delta
   end
+end
+
+function checkStorage()
+  local curr = 0
+  for k, v in pairs(resource) do
+    curr = curr + v
+  end
+  if curr >= maxResource then
+    return false
+  end
+  return true
 end

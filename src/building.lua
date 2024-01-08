@@ -11,7 +11,17 @@ function initBuilding(spr, x, y)
     description = spriteDesc[spr],
     queueForUpdate = false
   }
+  if b.spr == sprites["storage"] then
+    maxResource = maxResource + 10
+  end
+  updateProduction(spr, 1)
   return b
+end
+
+function deleteBuilding(b)
+  if b.spr == sprites["storage"] then
+    maxResource = maxResource - 10
+  end
 end
 
 function drawBuilding(b)

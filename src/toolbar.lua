@@ -131,9 +131,15 @@ end
 
 toolbarFunctions = {
   addSprite = function(arg)
-    local spr = addSprite({ arg, c.x, c.y })
-    if arg != "troop" and arg != "ship" then
-      updateProduction(arg, 1)
+    if resource["wood"] >= 1 then
+      resource["wood"] = resource["wood"] - 1
+      local spr = addSprite({ arg, c.x, c.y })
+    else
+      dialog(
+        "build",
+        { "not enough\nwood" },
+        "sm"
+      )
     end
   end,
   destroySprite = function(arg)
@@ -149,8 +155,17 @@ toolbarFunctions = {
     mode = modes["select"]
   end,
   harvestResource = function(arg)
-    resource[arg] = resource[arg] + 1
-    mode = modes["select"]
+    if checkStorage() then
+      resource[arg] = resource[arg] + 1
+      mode = modes["select"]
+    else
+      dialog(
+        "storage",
+        { "max\ncapacity" },
+        "sm"
+      )
+      mode = modes["dialog"]
+    end
   end,
   selectUnit = function(arg)
     if selActive[arg].type == unit then
