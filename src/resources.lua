@@ -24,6 +24,17 @@ function initResources()
     ore = 0,
     gold = 0
   }
+  foodCost = 0;
+  availableLabor = 0;
+  laborCost = 0;
+
+  subscribeToMessage(
+    "exhaust", "day",
+    function()
+      resource.food = resource.food - foodCost
+
+    end
+  )
   subscribeToMessage(
     "production", "day",
     function()

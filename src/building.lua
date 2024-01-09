@@ -13,6 +13,16 @@ function initBuilding(spr, x, y)
   }
   if b.spr == sprites["storage"] then
     maxResource = maxResource + 10
+  elseif b.spr == sprites["house"] then
+    foodCost = foodCost + 1
+    availableLabor = availableLabor + 4
+  end
+  if b.spr == sprites["farm"]
+      or b.spr == sprites["mine"]
+      or b.spr == sprites["port"]
+      or b.spr == sprites["barracks"]
+      or b.spr == sprites["woodmill"] then
+    laborCost = laborCost + 1
   end
   updateProduction(spr, 1)
   return b
@@ -21,6 +31,9 @@ end
 function deleteBuilding(b)
   if b.spr == sprites["storage"] then
     maxResource = maxResource - 10
+  elseif b.spr == sprites["house"] then
+    foodCost = foodCost - 1
+    availableLabor = availableLabor - 4
   end
 end
 
