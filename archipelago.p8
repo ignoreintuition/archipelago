@@ -18,6 +18,7 @@ __lua__
 #include src/enemy.lua
 #include src/timers.lua
 #include src/resources.lua
+#include src/goals.lua
 -->8
 __gfx__
 000000007cccccc667cccccccc673333333376c733333333cccccc67cccccc67cccccc67cc663333333376c73333333333333333333366cccc76333333333333

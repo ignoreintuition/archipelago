@@ -56,6 +56,7 @@ function _init()
   initTimers()
   initResources()
   printStats()
+  initGoals()
 end
 
 function _update()
@@ -64,6 +65,7 @@ function _update()
   updateEnemy()
   updateUi()
   updateTimers()
+  updateGoals()
 end
 
 function _draw()
@@ -73,6 +75,7 @@ function _draw()
   drawToolbar()
   drawDialog()
   drawUi()
+  drawGoals()
 end
 
 function printStats()
