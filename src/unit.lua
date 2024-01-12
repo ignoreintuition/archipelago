@@ -13,12 +13,15 @@ function initUnit(spr, x, y)
     sel = false,
     queueForUpdate = false,
     queueForDecomm = false,
-    queuedUnits = 0
+    queuedUnits = 0,
+    terr = {}
   }
   if u.spr == sprites["ship"] then
-    u.terr = water
+    add(u.terr, water)
+    add(u.terr, beach)
   elseif u.spr == sprites["troop"] then
-    u.terr = land
+    add(u.terr, land)
+    add(u.terr, forest)
   end
   return u
 end
@@ -70,7 +73,7 @@ function selectUnit(u)
 end
 
 function moveUnit(u, x, y)
-  if u.x == x and u.y == y then 
+  if u.x == x and u.y == y then
     mode = modes["select"]
     return true
   end
@@ -85,7 +88,7 @@ function moveUnit(u, x, y)
       end
     end
   end
-  if fget(u.spr, u.terr) == fget(mget(x, y), u.terr) then
+  if canTravel(u, x, y) then
     u.tx = x
     u.ty = y
     u.active = true
@@ -107,7 +110,6 @@ end
 function unitDialog(u)
   dialog(
     "unit info", {
-      "terr " .. u.terr,
       "level: " .. u.lvl,
       u.subType,
       "coord (" .. u.x .. ", " .. u.y .. ")",
@@ -117,5 +119,11 @@ function unitDialog(u)
 end
 
 function canTravel(u, x, y)
-  return fget(u.spr, u.terr) == true and fget(mget(x, y), u.terr) == true
+  for i, v in ipairs(u.terr) do
+    printh("v" .. v)
+    if fget(mget(x, y), v) == true then
+      return true
+    end
+  end
+  return false
 end

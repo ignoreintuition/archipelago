@@ -25,9 +25,25 @@ function updateUi()
     if btnp(⬇️) then
       newY = newY + 1
     end
-    c.x = mid(0, newX, maxX)
-    c.y = mid(0, newY, maxY)
+    if checkLocation(newX, newY) then
+      c.x = mid(0, newX, maxX)
+      c.y = mid(0, newY, maxY)
+    end
   end
+end
+
+function checkLocation(x, y)
+  local loc = getTileInfo(c.x, c.y)
+  local newLoc = getTileInfo(newX, newY)
+  if mode == modes["move"] then
+    if (loc.terr == "water" or loc.terr == "beach") and (newLoc.terr == "water" or newLoc.terr == "beach") then
+      return true
+    elseif loc.terr != "water" and newLoc.terr != "water" then
+      return true
+    end
+    return false
+  end
+  return true
 end
 
 function drawUi()
@@ -63,10 +79,10 @@ function drawSelector()
   elseif mode == modes["toolbar"] then
     showToolbar()
   elseif mode == modes["dialog"] then
-    if btnp(🅾️) then
+    if btnp(❎) then
       d["resolved"] = true
       resetDialog()
-    elseif btnp(❎) then
+    elseif btnp(🅾️) then
       resetDialog()
     end
   elseif mode == modes["move"] then

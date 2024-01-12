@@ -112,11 +112,11 @@ function showToolbar()
     activeAction = (activeAction - 1) % count(toolbars[toolbars["current"]])
   elseif btnp(➡️) then
     activeAction = (activeAction + 1) % count(toolbars[toolbars["current"]])
-  elseif btnp(🅾️) then
+  elseif btnp(❎) then
     setToolbarActive(false)
     toolbarFunctions[toolbars[toolbars["current"]][activeAction + 1][3]](toolbars[toolbars["current"]][activeAction + 1][4])
     cleanUpTb()
-  elseif btnp(❎) then
+  elseif btnp(🅾️) then
     setToolbarActive(false)
     cleanUpTb()
     mode = modes["select"]

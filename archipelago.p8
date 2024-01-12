@@ -1,7 +1,7 @@
 pico-8 cartridge // http://www.pico-8.com
 version 41
 __lua__
---archipelago 0.1.6
+--archipelago 0.1.7
 --by IgnoreIntuition
 --game
 #include src/game.lua

@@ -18,7 +18,7 @@ function drawGoals()
   if displayGoal then
     dialog(
       "welcome",
-      { "the queen would\nlike to welcome\nyou to archipelago\n\nyour goal: \nearn 100 gold" },
+      { "the queen would\nlike to welcome\nyou to archipelago\n\nyour goal: \nearn 100 gold\nyou have 100 days" },
       "lg",
       64
     )
