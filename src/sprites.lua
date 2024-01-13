@@ -72,7 +72,7 @@ function moveSprite(x, y)
 end
 
 function addSprite(v)
-  if v[1] == "ship" or v[1] == "troop" then
+  if v[1] == "ship" or v[1] == "troop" or v[1] == "citizen" then
     add(activeSprites, initUnit(v[1], v[2], v[3]))
     mode = modes["select"]
   else
@@ -81,9 +81,9 @@ function addSprite(v)
   end
 end
 
-function destroySprite(x, y)
+function destroySprite(sp, x, y)
   for i, v in ipairs(activeSprites) do
-    if v.x == x and v.y == y then
+    if v.x == x and v.y == y and v.spr == sp then
       local explosion = 32
       del(activeSprites, v)
       while explosion <= 34 do

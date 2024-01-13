@@ -19,9 +19,15 @@ function initUnit(spr, x, y)
   if u.spr == sprites["ship"] then
     add(u.terr, water)
     add(u.terr, beach)
-  elseif u.spr == sprites["troop"] then
+  elseif u.spr == sprites["troop"] or u.spr == sprites["citizen"] then
     add(u.terr, land)
     add(u.terr, forest)
+  end
+  if u.subType == "citizen" then
+    availableLabor = availableLabor + 1
+  end
+  if u.subType == "citizen" or u.subType == "troop" then
+    foodCost = foodCost + 1
   end
   return u
 end
@@ -39,7 +45,7 @@ function updateUnit(u)
   end
   if d["resolved"] and u["queueForDecomm"] then
     u["queueForDecomm"] = false
-    destroySprite(u.x, u.y)
+    destroySprite(u.spr, u.x, u.y)
   elseif not d["active"] and u["queueForDecomm"] then
     u["queueForDecomm"] = false
   end
@@ -101,6 +107,8 @@ end
 
 function upgradeUnit(v, u)
   dialog("merge", { "combine\nunits" }, "sm")
+  printh("v: " .. v.spr)
+  printh("u: " .. u.spr)
   v["queueForUpdate"] = true
   v["queuedUnits"] = u.lvl
   u["queueForDecomm"] = true
@@ -120,7 +128,6 @@ end
 
 function canTravel(u, x, y)
   for i, v in ipairs(u.terr) do
-    printh("v" .. v)
     if fget(mget(x, y), v) == true then
       return true
     end

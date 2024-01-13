@@ -13,9 +13,6 @@ function initBuilding(spr, x, y)
   }
   if b.spr == sprites["storage"] then
     maxResource = maxResource + 10
-  elseif b.spr == sprites["house"] then
-    foodCost = foodCost + 1
-    availableLabor = availableLabor + 4
   end
   if b.spr == sprites["farm"]
       or b.spr == sprites["mine"]

@@ -28,6 +28,7 @@ toolbars = {
     cancelIcon
   },
   house = {
+    { "worker", 23, "addSprite", "citizen" },
     upgradeIcon,
     { "destroy", 51, "destroySprite", "house" },
     cancelIcon
@@ -143,8 +144,8 @@ toolbarFunctions = {
     end
   end,
   destroySprite = function(arg)
-    destroySprite(c.x, c.y)
-    if arg != "troop" and arg != "ship" then
+    destroySprite(sprites[arg], c.x, c.y)
+    if arg != "troop" and arg != "ship" and arg != "citizen" then
       updateProduction(arg, -1)
     end
   end,

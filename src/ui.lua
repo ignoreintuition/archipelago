@@ -57,8 +57,7 @@ function drawSelector()
     if btnp(🅾️) then
       prevMode = mode
       infoDialog()
-    end
-    if btnp(❎) then
+    elseif btnp(❎) then
       local isSprite = selectSprite(c.x, c.y)
       if not isSprite then
         prevMode = mode

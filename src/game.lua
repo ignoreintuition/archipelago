@@ -16,7 +16,8 @@ function _init()
 
   sprites = {
     ship = 19,
-    troop = 22,
+    citizen = 22,
+    troop = 39,
     house = 21,
     farm = 24,
     port = 25,
@@ -49,12 +50,12 @@ function _init()
 
   initMap()
   initBroker()
+  initResources()
   initSprites({ { "ship", 1, 1 } })
   initEnemy()
   initUi()
   initToolbar()
   initTimers()
-  initResources()
   printStats()
   initGoals()
 end
