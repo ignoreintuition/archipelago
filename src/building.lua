@@ -8,8 +8,18 @@ function initBuilding(spr, x, y)
     y = y,
     active = false,
     lvl = 1,
+    labor = {
+      cost = 0,
+      current = 0
+    },
+    production = {
+      output = 0,
+      type = "none"
+    },
     description = spriteDesc[spr],
-    queueForUpdate = false
+    queueForUpdate = false,
+    queueForAssignment = false,
+    queuedUnits = 0
   }
   if b.spr == sprites["storage"] then
     maxResource = maxResource + 10
@@ -19,18 +29,24 @@ function initBuilding(spr, x, y)
       or b.spr == sprites["port"]
       or b.spr == sprites["barracks"]
       or b.spr == sprites["woodmill"] then
-    laborCost = laborCost + 1
+    b.labor.cost = 1
   end
-  updateProduction(spr, 1)
+  if b.spr == sprites["farm"] then
+    b.production.type = "food"
+    b.production.output = 1
+  elseif b.spr == sprites["mine"] then
+    b.production.type = "ore"
+    b.production.output = 1
+  elseif b.spr == sprites["woodmill"] then
+    b.production.type = "wood"
+    b.production.output = 1
+  end
   return b
 end
 
 function deleteBuilding(b)
   if b.spr == sprites["storage"] then
     maxResource = maxResource - 10
-  elseif b.spr == sprites["house"] then
-    foodCost = foodCost - 1
-    availableLabor = availableLabor - 4
   end
 end
 
@@ -44,7 +60,8 @@ function updateBuilding(b)
     b["queueForUpdate"] = false
     if resource["wood"] >= 2 then
       b.lvl = b.lvl + 1
-      resource["wood"] = resource["wood"] - 2
+      resource["wood"] -= 2
+      if b.labor.cost > 0 then b.labor.cost += 1 end
     else
       dialog(
         "upgrade",
@@ -52,6 +69,12 @@ function updateBuilding(b)
         "sm"
       )
     end
+  elseif d["resolved"] and b["queueForAssignment"] then
+    mode = modes["select"]
+    b["queueForAssignment"] = false
+    b.labor.current += b.queuedUnits
+    b.production.output = b.labor.current
+    b.queuedUnits = 0
   elseif not d["active"] and b["queueForUpdate"] then
     b["queueForUpdate"] = false
   end
@@ -78,6 +101,7 @@ function buildingDialog(b)
       b.subType,
       "level: " .. b.lvl,
       "coord (" .. b.x .. ", " .. b.y .. ")",
+      "labor: " .. b.labor.current .. "/" .. b.labor.cost,
       b.description
     },
     "lg"

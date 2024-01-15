@@ -9,12 +9,12 @@ productionResource = {
   waystation = "none"
 }
 
-maxResource = 10
+maxResource = 20
 
 function initResources()
   resource = {
     wood = 4,
-    food = 0,
+    food = 10,
     ore = 0,
     gold = 0
   }
@@ -24,33 +24,29 @@ function initResources()
     ore = 0,
     gold = 0
   }
-  foodCost = 0;
-  availableLabor = 0;
-  laborCost = 0;
 
   subscribeToMessage(
     "exhaust", "day",
     function()
-      resource.food = resource.food - foodCost
-
+      for i, v in ipairs(activeSprites) do
+        if v.foodCost then
+          resource.food = resource.food - v.foodCost
+        end
+      end
     end
   )
   subscribeToMessage(
     "production", "day",
     function()
-      for k, v in pairs(resource) do
-        if checkStorage() then
-          resource[k] = production[k] + resource[k]
+      for i, v in ipairs(activeSprites) do
+        if v.type == building and v.production.type ~= "none" then
+          if checkStorage() then
+            resource[v.production.type] += v.production.output
+          end
         end
       end
     end
   )
-end
-
-function updateProduction(resource, delta)
-  if productionResource[resource] != "none" then
-    production[productionResource[resource]] = production[productionResource[resource]] + delta
-  end
 end
 
 function checkStorage()

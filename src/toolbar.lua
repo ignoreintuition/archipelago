@@ -132,7 +132,10 @@ end
 
 toolbarFunctions = {
   addSprite = function(arg)
-    if resource["wood"] >= 1 then
+    if arg == "troop" or arg == "citizen" then 
+      local spr = addSprite({ arg, c.x, c.y })
+      -- TODO check for actual cost 
+    elseif resource["wood"] >= 1 then
       resource["wood"] = resource["wood"] - 1
       local spr = addSprite({ arg, c.x, c.y })
     else
@@ -145,9 +148,6 @@ toolbarFunctions = {
   end,
   destroySprite = function(arg)
     destroySprite(sprites[arg], c.x, c.y)
-    if arg != "troop" and arg != "ship" and arg != "citizen" then
-      updateProduction(arg, -1)
-    end
   end,
   upgradeSprite = function(arg)
     upgradeSprite(c.x, c.y)

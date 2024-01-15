@@ -4,6 +4,7 @@ function initUnit(spr, x, y)
     desc = spriteDesc[spr],
     subType = spr,
     lvl = 1,
+    foodCost = 1,
     spr = sprites[spr],
     x = x,
     y = y,
@@ -23,11 +24,8 @@ function initUnit(spr, x, y)
     add(u.terr, land)
     add(u.terr, forest)
   end
-  if u.subType == "citizen" then
-    availableLabor = availableLabor + 1
-  end
   if u.subType == "citizen" or u.subType == "troop" then
-    foodCost = foodCost + 1
+    u.foodCost = u.foodCost + 1
   end
   return u
 end
@@ -89,6 +87,9 @@ function moveUnit(u, x, y)
         upgradeUnit(v, u)
         return true
       elseif v.type == building then
+        assignUnit(v, u)
+        return true
+      elseif v.type == building then
         mode = modes["select"]
         return false
       end
@@ -107,9 +108,15 @@ end
 
 function upgradeUnit(v, u)
   dialog("merge", { "combine\nunits" }, "sm")
-  printh("v: " .. v.spr)
-  printh("u: " .. u.spr)
   v["queueForUpdate"] = true
+  v["queuedUnits"] = u.lvl
+  u["queueForDecomm"] = true
+  mode = modes["dialog"]
+end
+
+function assignUnit(v, u)
+  dialog("assign", { "assign\nunits" }, "sm")
+  v["queueForAssignment"] = true
   v["queuedUnits"] = u.lvl
   u["queueForDecomm"] = true
   mode = modes["dialog"]
