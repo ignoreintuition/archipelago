@@ -1,6 +1,6 @@
 function _init()
   frame = { 2, 3 }
-  paused = false 
+  paused = false
   maxX = 127
   maxY = 63
 
@@ -27,7 +27,6 @@ function _init()
     storage = 31,
     woodmill = 35,
     waystation = 37
-
   }
   spriteDesc = {
     ship = "travels by sea. \ncan carry cargo \nor passengers.",
@@ -36,9 +35,9 @@ function _init()
     farm = "provides food. \nrequires farmers.",
     port = "build Ships. \nload / unload goods.",
     mine = "harvest ore",
-    barracks = "train peasants to fight.",
+    barracks = "train peasants \nto fight.",
     woodmill = "gather wood.",
-    waystation = "waypoint between trade routes",
+    waystation = "waypoint between \ntrade routes",
     storage = "allows you to store \nadditional goods."
   }
   modes = {
@@ -47,11 +46,17 @@ function _init()
     toolbar = 3,
     dialog = 4
   }
-
+  gameState = {
+    title = 1,
+    game = 2,
+    over = 3
+  }
+  state = gameState["title"]
+  initTitle()
   initMap()
   initBroker()
   initResources()
-  initSprites({ { "ship", 1, 1 } })
+  initSprites({ { "ship", 1, 1 }, {"citizen", 4, 1} })
   initEnemy()
   initUi()
   initToolbar()
@@ -61,22 +66,30 @@ function _init()
 end
 
 function _update()
-  updateMap()
-  updateSprites()
-  updateEnemy()
-  updateUi()
-  updateTimers()
-  updateGoals()
+  if state == gameState["title"] then
+    updateTitle()
+  else
+    updateMap()
+    updateSprites()
+    updateEnemy()
+    updateUi()
+    updateTimers()
+    updateGoals()
+  end
 end
 
 function _draw()
-  drawMap()
-  drawSprites()
-  drawEnemy()
-  drawToolbar()
-  drawDialog()
-  drawUi()
-  drawGoals()
+  if state == gameState["title"] then
+    drawTitle()
+  else
+    drawMap()
+    drawSprites()
+    drawEnemy()
+    drawToolbar()
+    drawDialog()
+    drawUi()
+    drawGoals()
+  end
 end
 
 function printStats()

@@ -1,4 +1,6 @@
 function initMap()
+  mapX = 0 
+  mapY = 0 
 end
 
 function updateMap()

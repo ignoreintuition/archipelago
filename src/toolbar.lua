@@ -72,7 +72,11 @@ toolbars = {
     { "destroy", 51, "destroySprite", "waystation" },
     cancelIcon
   },
-  selectSprites = {}
+  selectSprites = {},
+  boat = {
+    { "disembark", 60, "disembark"},
+    { "move", 59, "move"}
+  }
 }
 
 function initToolbar()
@@ -174,5 +178,11 @@ toolbarFunctions = {
     elseif selActive[arg].type == building then
       selectBuilding(selActive[arg])
     end
+  end,
+  move = function(arg)
+    mode = modes["select"]
+  end,
+  disembark = function(arg)
+    mode = modes["select"]
   end
 }

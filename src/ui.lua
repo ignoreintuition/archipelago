@@ -10,26 +10,26 @@ function initUi()
 end
 
 function updateUi()
-  if mode == modes["select"] or mode == modes["move"] then
-    newX = c.x
-    newY = c.y
-    if btnp(⬅️) then
-      newX = newX - 1
+    if mode == modes["select"] or mode == modes["move"] then
+      newX = c.x
+      newY = c.y
+      if btnp(⬅️) then
+        newX = newX - 1
+      end
+      if btnp(➡️) then
+        newX = newX + 1
+      end
+      if btnp(⬆️) then
+        newY = newY - 1
+      end
+      if btnp(⬇️) then
+        newY = newY + 1
+      end
+      if checkLocation(newX, newY) then
+        c.x = mid(0, newX, maxX)
+        c.y = mid(0, newY, maxY)
+      end
     end
-    if btnp(➡️) then
-      newX = newX + 1
-    end
-    if btnp(⬆️) then
-      newY = newY - 1
-    end
-    if btnp(⬇️) then
-      newY = newY + 1
-    end
-    if checkLocation(newX, newY) then
-      c.x = mid(0, newX, maxX)
-      c.y = mid(0, newY, maxY)
-    end
-  end
 end
 
 function checkLocation(x, y)

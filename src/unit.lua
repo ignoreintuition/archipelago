@@ -20,9 +20,11 @@ function initUnit(spr, x, y)
   if u.spr == sprites["ship"] then
     add(u.terr, water)
     add(u.terr, beach)
+    u.passengers = {}
   elseif u.spr == sprites["troop"] or u.spr == sprites["citizen"] then
     add(u.terr, land)
     add(u.terr, forest)
+    add(u.terr, beach)
   end
   if u.subType == "citizen" or u.subType == "troop" then
     u.foodCost = u.foodCost + 1
@@ -70,10 +72,22 @@ function drawUnit(u)
 end
 
 function selectUnit(u)
-  prevMode = mode
-  mode = modes["move"]
-  u.sel = true
+  if u.subType == "ship" and isTile(beach, u.x, u.y) then
+    setToolbarActive(true, "boat")
+    mode = modes["toolbar"]
+  else
+    prevMode = mode
+    mode = modes["move"]
+    u.sel = true
+  end
   return true
+end
+
+function disembark(u, v)
+  for i, v in ipairs(u.passengers) do
+    add(activeSprites, v)
+    del(u.passengers, v)
+  end
 end
 
 function moveUnit(u, x, y)
@@ -83,9 +97,11 @@ function moveUnit(u, x, y)
   end
   for i, v in ipairs(activeSprites) do
     if v.x == x and v.y == y then
-      if v.type == unit then
+      if v.type == unit and v.subType == u.subType then
         upgradeUnit(v, u)
         return true
+      elseif v.type == unit and v.subType == "ship" then
+        boardShip(v, u)
       elseif v.type == building then
         assignUnit(v, u)
         return true
@@ -112,6 +128,11 @@ function upgradeUnit(v, u)
   v["queuedUnits"] = u.lvl
   u["queueForDecomm"] = true
   mode = modes["dialog"]
+end
+
+function boardShip(v, u, i)
+  del(activeSprites, u)
+  add(v.passengers, u)
 end
 
 function assignUnit(v, u)
