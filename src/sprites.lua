@@ -111,3 +111,13 @@ function upgradeSprite(x, y)
   mode = modes["select"]
   return false
 end
+
+function unitInZone(x, y)
+  local z = checkZone(x, y)
+  for i, v in ipairs(activeSprites) do 
+    if v.type == unit and checkZone(v.x, v.y) == z then
+      return true
+    end
+  end
+  return false
+end

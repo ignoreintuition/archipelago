@@ -19,7 +19,8 @@ function initBuilding(spr, x, y)
     description = spriteDesc[spr],
     queueForUpdate = false,
     queueForAssignment = false,
-    queuedUnits = 0
+    queuedUnits = 0,
+    zone = checkZone(x, y)
   }
   if b.spr == sprites["storage"] then
     maxResource = maxResource + 10
@@ -102,6 +103,7 @@ function buildingDialog(b)
       "level: " .. b.lvl,
       "coord (" .. b.x .. ", " .. b.y .. ")",
       "labor: " .. b.labor.current .. "/" .. b.labor.cost,
+      "island " .. b.zone,
       b.description
     },
     "lg"

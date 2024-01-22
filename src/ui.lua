@@ -103,15 +103,15 @@ function infoDialog()
     local tile = getTileInfo(c.x, c.y)
     dialog(
       "tile info",
-      { "tile " .. tile.terr, "coord (" .. c.x .. ", " .. c.y .. ")" },
+      { "tile " .. tile.terr, "coord (" .. c.x .. ", " .. c.y .. ")", "island " .. checkZone(c.x, c.y)},
       "lg"
     )
   end
 end
 
 function drawOverlay()
-  local x = mapX * 8
-  local y = mapY * 8 - 8
+  local x = gMap.x * 8
+  local y = gMap.y * 8 - 8
   rectfill(x, y, x + 128, y + 7, 0)
   print("day" .. day, x, y + 1, 15)
   spr(54, (x + 4) * 8, y)

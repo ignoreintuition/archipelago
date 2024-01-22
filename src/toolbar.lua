@@ -34,7 +34,6 @@ toolbars = {
     cancelIcon
   },
   farm = {
-    { "harvest", 49, "harvestResource", "food" },
     upgradeIcon,
     { "destroy", 51, "destroySprite", "farm" },
     cancelIcon
@@ -98,8 +97,8 @@ end
 
 function drawToolbar()
   if toolbarActive then
-    local x = mapX * 8 + toolbars["width"]
-    local y = mapY * 8 + toolbars["height"]
+    local x = gMap.x * 8 + toolbars["width"]
+    local y = gMap.y * 8 + toolbars["height"]
     rect(x - 1, y - 1, x + 49, y + 17, 13)
     rectfill(x, y, x + 48, y + 16, 0)
     for i, v in ipairs(toolbars[toolbars["current"]]) do
@@ -110,8 +109,8 @@ function drawToolbar()
 end
 
 function showToolbar()
-  tbx = mapX * 8 + toolbars["width"] + 8 * activeAction
-  tby = mapY * 8 + toolbars["height"]
+  tbx = gMap.x * 8 + toolbars["width"] + 8 * activeAction
+  tby = gMap.y * 8 + toolbars["height"]
   rect(tbx, tby, tbx + 8, tby + 8, 5)
   if btnp(⬅️) then
     activeAction = (activeAction - 1) % count(toolbars[toolbars["current"]])
@@ -135,19 +134,25 @@ function cleanUpTb()
 end
 
 toolbarFunctions = {
-  addSprite = function(arg)
+  addSprite = function(arg) 
     if arg == "troop" or arg == "citizen" then 
       local spr = addSprite({ arg, c.x, c.y })
       -- TODO check for actual cost 
-    elseif resource["wood"] >= 1 then
-      resource["wood"] = resource["wood"] - 1
-      local spr = addSprite({ arg, c.x, c.y })
-    else
+    elseif resource["wood"] < 1 then
       dialog(
         "build",
         { "not enough\nwood" },
         "sm"
       )
+    elseif not unitInZone(c.x, c.y) then
+      dialog(
+        "build",
+        { "no units" },
+        "sm"
+      )
+    else
+      resource["wood"] = resource["wood"] - 1
+      local spr = addSprite({ arg, c.x, c.y })
     end
   end,
   destroySprite = function(arg)

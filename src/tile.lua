@@ -17,8 +17,8 @@ function getTileInfo(x, y)
 end
 
 function toggleTile()
-  for x = mapX, mapX + 15 do
-    for y = mapY, mapY + 14 do
+  for x = gMap.x, gMap.x + 15 do
+    for y = gMap.y, gMap.y + 14 do
       if isTile(2, x, y) then
         swapTile(x, y)
       elseif isTile(3, x, y) then

@@ -17,8 +17,8 @@ function dialog(t, c, sz, spr)
     c = c,
     t = t,
     sz = sz,
-    x = mapX * 8 + dSize[sz][1],
-    y = mapY * 8 + dSize[sz][2],
+    x = gMap.x * 8 + dSize[sz][1],
+    y = gMap.y * 8 + dSize[sz][2],
   } 
   if spr then
     d.imageDialog = true
