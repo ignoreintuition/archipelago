@@ -33,7 +33,7 @@ function initUnit(spr, x, y)
 end
 
 function updateUnit(u)
-  u.spr = animate(u)
+  u.spr = animate(timer, u.spr)
   if d["resolved"] and u["queueForUpdate"] then
     mode = modes["select"]
     u["queueForUpdate"] = false
@@ -83,13 +83,14 @@ function selectUnit(u)
   return true
 end
 
-function disembark(u, v)
+function disembark(u)
   for i, v in ipairs(u.passengers) do
-    add(activeSprites, v)
+    v.x = u.x
+    v.y = u.y
+    add(active𝘴prites, v)
     del(u.passengers, v)
   end
 end
-
 function moveUnit(u, x, y)
   if u.x == x and u.y == y then
     mode = modes["select"]

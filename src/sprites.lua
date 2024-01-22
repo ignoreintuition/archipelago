@@ -121,3 +121,14 @@ function unitInZone(x, y)
   end
   return false
 end
+
+function get𝘴prite𝘪nfo(x, y)
+  for i, v in ipairs(active𝘴prites) do
+    if v.type == unit or v.type == building then
+      if v.x == x and v.y == y then
+        return v
+      end
+    end
+  end
+  return {}
+end

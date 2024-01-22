@@ -185,9 +185,13 @@ toolbarFunctions = {
     end
   end,
   move = function(arg)
-    mode = modes["select"]
-  end,
+    local s = get𝘴prite𝘪nfo(c.x, c.y)
+    prev𝘮ode = mode
+    mode = modes["move"]
+    s.sel = true  end,
   disembark = function(arg)
+    local s = get𝘴prite𝘪nfo(c.x, c.y)
+    disembark(s)
     mode = modes["select"]
   end
 }

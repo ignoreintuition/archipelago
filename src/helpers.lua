@@ -1,12 +1,12 @@
-function animate(s)
-  if timer == 0 then
-    if fget(s.spr, frame[1]) == true then
-      return s.spr + 1
-    elseif fget(s.spr, frame[2]) == true then
-      return s.spr - 1
+function animate( t, s )
+  if t == 0 then
+    if fget(s, frame[1]) == true then
+      return s + 1
+    elseif fget(s, frame[2]) == true then
+      return s - 1
     end
   end
-  return s.spr
+  return s
 end
 
 function isTile(type, x, y)
